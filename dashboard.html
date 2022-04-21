@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDI</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container container-dashboard">
+        <div class="row row-dashboard">
+            <div class="col">
+                <div class="card text-center card-dashboard">
+                    <div class="card-body">
+                      <h5 class="card-title card-title-dashboard">Data Absen</h5>
+                      <p class="card-text">Rekapan data absen</p>
+                      <a class="btn btn-primary btn-dashboard" onclick="lihat_absen()">Click!</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card text-center card-dashboard">
+                    <div class="card-body">
+                      <h5 class="card-title card-title-dashboard">Absen</h5>
+                      <p class="card-text">Masukan absen di sini</p>
+                      <a class="btn btn-primary btn-dashboard" onclick="absen()">Click!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function absen(){
+            window.location.href = "event.html";
+        }
+
+        function lihat_absen(){
+            window.location.href = "data.html";
+        }
+    </script>
+</body>
+</html>

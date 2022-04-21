@@ -1,0 +1,138 @@
+body {
+    background-color: #143F6B !important;
+}
+
+.container-dashboard, .container-event, .container-absen{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container-data, .container-data-absen{
+    margin: 0;
+}
+
+.row-dashboard, .row-event{
+    margin: auto;
+}
+
+.row-data{
+    margin: auto;
+    padding: 2rem;
+}
+
+.row-data-absen{
+    margin: 4rem;
+}
+
+.card-dashboard, .card-event, .card-data{
+    background-color: #F55353 !important;
+    color: #fff;
+    margin: auto;
+    width: 18rem;
+    border-radius: 10px !important;
+}
+
+.judul-data{
+    margin: auto;
+    color: #fff;
+    padding: 5% 0 3% 0;
+}
+
+.judul-data-absen{
+    color: #fff;
+    text-align: center;
+    padding-top: 3rem;
+}
+
+.tanggal-data-absen{
+    color: #fff;
+    text-align: center;
+    padding-top: 1rem;
+}
+
+.card-data{
+    background-color: #F55353 !important;
+    color: #fff;
+    margin: auto;
+    width: 25rem;
+    border-radius: 10px !important;
+}
+
+.card-absen{
+    background: rgb(245,83,83);
+    background: linear-gradient(153deg, rgba(245,83,83,1) 30%, rgba(246,245,77,1) 100%);
+    color: #fff;
+    margin: auto;
+    border: 0 solid !important;
+    width: 20rem;
+    height: 25rem;
+    border-radius: 10px !important;
+}
+
+.card-title-dashboard, .card-title-event, .card-title-data{
+    background: rgb(254,177,57);
+    background: linear-gradient(90deg, rgba(254,177,57,1) 30%, rgba(246,245,77,1) 100%);
+    color: #fff !important;
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.card-title-absen{
+    padding: 0.5rem;
+}
+
+.btn-dashboard, .btn-event, .btn-data{
+    background-color: #F55353 !important;
+    border-color: #fff !important;
+    color: #fff !important;
+    width: 30%;
+}
+
+.btn-absen{
+    background-color: transparent !important;
+    border-color: #fff !important;
+    color: #fff !important;
+}
+
+#kegiatan, #tanggal{
+    background-color: #F55353;
+    border-color: #fff;
+    color: #fff;
+    width: 100%;
+    padding: 1.5%;
+    border-radius: 0px;
+    border: 0px solid;
+}
+
+#nama, #kelas, #wa{
+    width: 100%;
+    background-color: transparent !important;
+    border-color: #fff;
+    color: #fff;
+    border-radius: 0px !important;
+    padding: 0.5rem;
+    margin: 0.7rem 0rem 0.7rem 0rem;
+    border-top: 0px solid;
+    border-right: 0px solid;
+    border-left: 0px solid;
+}
+
+::placeholder {
+    color:#fff;
+ }
+
+ .table tr{
+     color:#fff;
+ }
+
+ .table th{
+     width: 30%;
+ }
+
+ .thead{
+    background: rgb(254,177,57);
+    background: linear-gradient(90deg, rgba(254,177,57,1) 30%, rgba(246,245,77,1) 100%);
+ }

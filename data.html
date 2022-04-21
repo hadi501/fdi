@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDI</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <script src="assets/js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container container-data">
+        <div class="row">
+            <h1 class="judul-data">Data Absen Kegiatan</h1>
+        </div>
+        <div id="data">
+        </div>
+    </div>
+
+    <script>
+    $.get(
+        "http://localhost/fdi/api/api.php?function=get_data_kegiatan",
+        function (data) {
+        data = JSON.parse(data);
+            if (data.error == false) {
+                const jumlah_row = Math.ceil(data.data.length/2) + 1;
+
+                for (i = 1; i < jumlah_row; i++) {
+                    buat_row(i);
+                }
+                
+                for (i = 0; i < data.data.length; i++) {
+                    const date = data.data[i].tanggal_kegiatan;
+                    const d = new Date(date);
+                    const days = ["Ahad", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+                    const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+                    let date1 = d.getDate();
+                    let day = days[d.getDay()];
+                    let month = months[d.getMonth()];
+                    let year = d.getFullYear();
+                    const tanggal_kegiatan = day + ", " + date1 + " " + month + " " + year;
+                    let bulan = d.getMonth() + 1;
+                    let tgl_kegiatan;
+                    if(bulan<10){
+                        tgl_kegiatan = d.getFullYear() + "-0" + bulan + "-" + d.getDate();
+                    } else{
+                        tgl_kegiatan = d.getFullYear() + "-" + bulan + "-" + d.getDate();
+                    }
+                    buat(data, tgl_kegiatan, tanggal_kegiatan, i);
+                }
+            } else{
+                alert(data.error_msg);
+            }
+        }
+    );
+
+    function buat_row(i) {
+        let content = "";
+        content += `
+            <div class="row row-data row-data-${i*2 - 2} row-data-${i*2 - 1}"></div>
+        `;
+        tampil_row(content);
+    }
+
+    function buat(data, tgl_kegiatan, tanggal_kegiatan, i) {
+        let content = "";
+        content += `
+                <div class="col">
+                    <div class="card text-center card-data data ke-${i}">
+                        <div class="card-body">
+                            <h5 class="card-title card-title-data">${data.data[i].nama_kegiatan}</h5>
+                            <p class="card-text">${tanggal_kegiatan}</p>
+                            <a class="btn btn-primary btn-data" onclick="hapus_data(kegiatan='${data.data[i].nama_kegiatan}', tanggal='${tgl_kegiatan}')">Hapus</a>
+                            <a class="btn btn-primary btn-data" onclick="lihat_data(kegiatan='${data.data[i].nama_kegiatan}', tanggal='${tgl_kegiatan}', tanggal1='${tanggal_kegiatan}')">Lihat</a>
+                        </div>
+                    </div>
+                </div>
+        `;
+        tampil(content, i);
+    }
+
+    function tampil_row(content) {
+        $("#data").append(content);
+    }
+
+    function tampil(content) {
+        $(".row-data-"+i).append(content);
+    }
+
+    function lihat_data(kegiatan, tanggal, tanggal1){
+        window.location.href=`data_absen.html?kegiatan=${kegiatan}&tanggal=${tanggal}&tanggal1=${tanggal1}`;
+    }
+
+    function hapus_data(kegiatan, tanggal){
+        let text = "Apakah anda yakin untuk menghapus absen tanggal " + tanggal;
+        if (confirm(text) == true) {
+            $.post(
+                "http://localhost/fdi/api/api.php?function=hapus_data",
+                {
+                    kegiatan: kegiatan,
+                    tanggal: tanggal
+                },
+                function (data) {
+                    data = JSON.parse(data);
+                    if(data.error == false){
+                        alert(data.message);
+                        window.location.reload();
+                    } else{
+                        alert(data.error_msg);
+                        window.location.reload();
+                    }
+                }
+            );
+        }
+    }
+
+    </script>
+</body>
+</html>

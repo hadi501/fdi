@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDI</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <script src="assets/js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container container-data-absen">
+        <div class="row judul-data-absen">
+            <div class="col-12">
+                <h2 class="judul-kegiatan"></h2>    
+            </div>
+            <div class="col-12 tanggal-data-absen">
+                <h5 class="tanggal-kegiatan">Tanggal 5 Januari 2016</h5>    
+            </div>
+        </div>
+        <div class="row row-data-absen">
+            <table class="table">
+                <thead class="thead">
+                  <tr>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Kelas</th>
+                    <th scope="col">No.WA</th>
+                  </tr>
+                </thead>
+                <tbody class="data-absen">
+                  
+                </tbody>
+              </table>
+        </div>
+    </div>
+
+    <script>
+      const url_string = window.location.href;
+      const url = new URL(url_string);
+      const kegiatan = url.searchParams.get("kegiatan");
+      const tanggal = url.searchParams.get("tanggal");
+      const tanggal1 = url.searchParams.get("tanggal1");
+      console.log(kegiatan, tanggal1);
+      document.querySelector(".judul-kegiatan").innerHTML = "Data Absen kegiatan " + kegiatan;
+      document.querySelector(".tanggal-kegiatan").innerHTML = tanggal1;
+      
+      $.post(
+          "http://localhost/fdi/api/api.php?function=get_data_absen",
+          {
+              kegiatan: kegiatan,
+              tanggal: tanggal
+          },
+          function (data) {
+              data = JSON.parse(data);
+              if(data.error == false){
+                for(i=0;i<data.data.length;i++){
+                  buat(i, data);
+                }
+              } else{
+                alert(data.error_msg);
+              }
+          }
+        );
+
+        function buat(i, data) {
+        let content = "";
+        content += `
+            <tr>
+              <td>${data.data[i].nama_absen}</td>
+              <td>${data.data[i].kelas_absen}</td>
+              <td>0${data.data[i].wa_absen}</td>
+            </tr>
+        `;
+        tampil(content);
+    }
+
+    function tampil(content) {
+        $(".data-absen").append(content);
+    }
+
+    </script>
+
+</body>
+</html>

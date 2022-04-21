@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDI</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <script src="assets/js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container container-absen">
+        <div class="row row-event">
+            <div class="card text-center card-absen">
+                <div class="card-body">
+                    <h3 class="card-title card-title-absen">Absen</h3>
+                    <p class="card-text"><input type="text" id="nama" placeholder="Nama Lengkap"></p>
+                    <p class="card-text"><input type="text" id="kelas" placeholder="Kelas"></p>
+                    <p class="card-text"><input type="number" id="wa" placeholder="Nomor WhatsApp"></p>
+                    <a class="btn btn-primary btn-absen" onclick="absen()">Input</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        jsarray = JSON.parse(sessionStorage.getItem("jsArray"));
+
+        function absen(){
+            const nama = document.getElementById("nama").value;
+            const kelas = document.getElementById("kelas").value;
+            const wa = document.getElementById("wa").value;
+            const kegiatan = jsarray[0];
+            const tanggal = jsarray[1];
+
+            if(nama == "" || kelas == "" || wa == ""){
+                alert("Jangan ada data kosong");
+            } else{
+                // console.log(nama, kelas, wa, kegiatan, tanggal);
+                $.post(
+                    "http://localhost/fdi/api/api.php?function=insert_absen",
+                    {
+                        nama : nama,
+                        kelas : kelas,
+                        wa : wa,
+                        kegiatan: kegiatan,
+                        tanggal: tanggal,
+                    },
+                    function (data) {
+                        data = JSON.parse(data);
+                        if(data.error == false) {
+                            alert(data.message);
+                            window.location.reload();
+                        }
+                    }
+                );
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDI</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <script src="assets/js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container container-event">
+        <div class="row row-event">
+            <div class="card text-center card-event">
+                <div class="card-body">
+                    <h5 class="card-title card-title-event">Kegiatan</h5>
+                    <p class="card-text">
+                        <select id="kegiatan">
+                            <option value="I-day">I-Day</option>
+                            <option value="I-class">I-Class</option>
+                            <option value="Pesta Quran">Pesta Qur'an</option>
+                        </select>
+                    </p>
+                    <p class="card-text"><input type="date" id="tanggal"></p>
+                    <a class="btn btn-primary btn-event" onclick="input()">Input</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var today = new Date().toJSON().slice(0, 10).replace(/-/g, "-");
+        document.getElementById("tanggal").value = today;
+
+        function input(){
+            const kegiatan = document.getElementById("kegiatan").value;
+            const tanggal = document.getElementById("tanggal").value;
+            jsarray = [kegiatan, tanggal];
+            sessionStorage.setItem("jsArray", JSON.stringify(jsarray));
+
+            // console.log(kegiatan);
+            $.post(
+                "http://localhost/fdi/api/api.php?function=insert_kegiatan",
+                {
+                    kegiatan: kegiatan,
+                    tanggal: tanggal,
+                },
+                function (data) {
+                    data = JSON.parse(data);
+                    if(data.error == false) {
+                        window.location.href = "absen.html";
+                    }
+                }
+            );
+        }
+    </script>
+</body>
+</html>
